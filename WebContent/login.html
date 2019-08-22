@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="/ajax/js/jQuery.js" type="text/javascript"></script>
+</head>
+<body>
+用户名：<input type="text" id="username" onblur="delUser()"/><span id="msg"></span><br>
+密码：<input type="password">
+<input type="image" id="image">
+</body>
+<script type="text/javascript">
+$(function(){
+	  $.ajax({
+		  	url:"/ajax/hutool",
+		  	type:"post",
+		 
+		  	dataType:"text",
+		  	success:function(msg){
+		  		alert(msg)
+		  		$("#image").val(msg);
+		  	}
+		  	
+		  })
+})
+function checkUsername() {
+$.ajax({
+	url:"/ajax/UserServlet",
+	type:"post",
+	data:{
+		"username":$("#username").val()
+	
+	},
+	dataType:"text",
+	success:function(msg){
+		if(msg=="no"){
+			$("#msg").html("不行")
+		}else if(msg=="yes"){
+			$("#msg").html("行")
+		}
+	}
+	
+})
+}
+function delUser() {
+    alert("ddas")
+	  $.ajax({
+	  	url:"/ajax/UserServlet",
+	  	type:"post",
+	  	data:{
+	  		"type":"del"
+	  	},
+	  	dataType:"text",
+	  	success:function(msg){
+	  		var total =msg;
+	  		return total;
+	  	}
+	  	
+	  })
+	  }
+</script>
+</html>
